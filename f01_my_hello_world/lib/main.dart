@@ -30,7 +30,7 @@ class _MyAppState extends State<MyApp> {
           children: [
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+              children: const [
                 Text(
                   "Olá mundo",
                   style: TextStyle(fontSize: 26),

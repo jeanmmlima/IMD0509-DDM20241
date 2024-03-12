@@ -26,11 +26,11 @@ class _MyCounterState extends State<MyCounter> {
       children: [
         ElevatedButton(
                   onPressed: contar,
-                  child: Text("Contar", style: TextStyle(fontSize: 20)),
+                  child: const Text("Contar", style: TextStyle(fontSize: 20)),
                 ),
                 Text(
                   "Contagem: $contador",
-                  style: TextStyle(fontSize: 20),
+                  style: const TextStyle(fontSize: 20),
                 )
       ],
     );
