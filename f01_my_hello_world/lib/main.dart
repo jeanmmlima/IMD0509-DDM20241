@@ -4,12 +4,28 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  int contador = 0;
+
+  contar(){
+    setState(() {
+        contador++;
+    });
+
+    print(contador);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    int contador = 0;
+    
 
     return MaterialApp(
       home: Scaffold(
@@ -29,10 +45,7 @@ class MyApp extends StatelessWidget {
                 Text("Esse é meu primeiro App em Flutter",
                     style: TextStyle(fontSize: 20)),
                 ElevatedButton(
-                  onPressed: () {
-                    contador++;
-                    print(contador);
-                  },
+                  onPressed: contar,
                   child: Text("Contar", style: TextStyle(fontSize: 20)),
                 ),
                 Text(
