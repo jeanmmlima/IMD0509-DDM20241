@@ -1,3 +1,4 @@
+import 'package:f01_my_hello_world/components/my_counter.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,15 +14,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
-  int contador = 0;
-
-  contar(){
-    setState(() {
-        contador++;
-    });
-
-    print(contador);
-  }
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -44,14 +37,7 @@ class _MyAppState extends State<MyApp> {
                 ),
                 Text("Esse é meu primeiro App em Flutter",
                     style: TextStyle(fontSize: 20)),
-                ElevatedButton(
-                  onPressed: contar,
-                  child: Text("Contar", style: TextStyle(fontSize: 20)),
-                ),
-                Text(
-                  "Contagem: $contador",
-                  style: TextStyle(fontSize: 20),
-                )
+                MyCounter(),
               ],
             ),
           ],
