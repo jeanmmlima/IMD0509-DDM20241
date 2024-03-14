@@ -43,6 +43,17 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _tarefas.add(novaTarefa);
     });
+
+    Navigator.of(context).pop();
+  }
+
+  //Modal
+  _openTaskFormModal(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (_) {
+          return FormTarefa(_novaTarefa);
+        });
   }
 
   @override
@@ -50,6 +61,11 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('To Do List'),
+        actions: [
+          IconButton(
+              onPressed: () => _openTaskFormModal(context),
+              icon: Icon(Icons.add))
+        ],
       ),
       body: Container(
         padding: EdgeInsets.all(20),
@@ -57,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             // formulario de tarefa
 
-            FormTarefa(_novaTarefa),
+            //FormTarefa(_novaTarefa),
             const SizedBox(
               height: 20,
             ),
@@ -65,6 +81,10 @@ class _MyHomePageState extends State<MyHomePage> {
             ListaTarefa(listaTarefas: _tarefas),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _openTaskFormModal(context),
+        child: Icon(Icons.add),
       ),
     );
   }
