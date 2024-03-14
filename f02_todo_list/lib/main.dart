@@ -36,11 +36,9 @@ class _MyHomePageState extends State<MyHomePage> {
     Tarefa(id: 't1', titulo: 'Jogar', data: DateTime.now()),
   ];
 
-  _novaTarefa(String tarefa) {
+  _novaTarefa(String tarefa, DateTime data) {
     Tarefa novaTarefa = Tarefa(
-        id: Random().nextInt(9999).toString(),
-        titulo: tarefa,
-        data: DateTime.now());
+        id: Random().nextInt(9999).toString(), titulo: tarefa, data: data);
 
     setState(() {
       _tarefas.add(novaTarefa);

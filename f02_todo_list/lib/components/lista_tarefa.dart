@@ -27,12 +27,19 @@ class ListaTarefa extends StatelessWidget {
               child: Row(
                 children: [
                   Container(
-                      margin: const EdgeInsets.symmetric(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            width: 2,
+                            color: tarefa.data.day >= DateTime.now().day
+                                ? Theme.of(context).colorScheme.primary
+                                : Theme.of(context).colorScheme.secondary),
+                      ),
+                      margin: EdgeInsets.symmetric(
                         horizontal: 15,
                         vertical: 10,
                       ),
-                      padding: const EdgeInsets.all(10),
-                      child: Text(DateFormat('dd/MM/yyyy').format(tarefa.data),
+                      padding: EdgeInsets.all(10),
+                      child: Text(DateFormat('d MMM y').format(tarefa.data),
                           style: TextStyle(
                               color: tarefa.data.day >= DateTime.now().day
                                   ? Theme.of(context).colorScheme.primary
