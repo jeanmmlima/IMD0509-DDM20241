@@ -2,6 +2,11 @@ import 'package:f03_lugares/models/place.dart';
 import 'package:flutter/material.dart';
 
 class PlaceDetailScreen extends StatelessWidget {
+  final Function(Place) onToggleFavorite;
+  final Function(Place) isFavorite;
+
+  const PlaceDetailScreen(this.onToggleFavorite, this.isFavorite);
+
   @override
   Widget build(BuildContext context) {
     final place = ModalRoute.of(context)?.settings.arguments as Place;
@@ -66,9 +71,9 @@ class PlaceDetailScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).pop(place.titulo);
+          onToggleFavorite(place);
         },
-        child: Icon(Icons.star),
+        child: Icon(isFavorite(place) ? Icons.star : Icons.star_border),
       ),
     );
   }
