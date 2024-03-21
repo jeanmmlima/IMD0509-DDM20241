@@ -1,4 +1,5 @@
 import 'package:f03_lugares/components/country_item.dart';
+import 'package:f03_lugares/components/main_drawer.dart';
 import 'package:flutter/material.dart';
 import '../data/my_data.dart';
 
@@ -11,6 +12,7 @@ class CountriesScreen extends StatelessWidget {
           title: Text(
             'Bora viajar?!',
           )),
+      drawer: MainDrawer(),
       body: GridView(
         padding: const EdgeInsets.all(25),
         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
