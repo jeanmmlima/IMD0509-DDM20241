@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:f03_lugares/screens/countries_places_screen.dart';
 import 'package:f03_lugares/screens/place_detail_screen.dart';
 import 'package:f03_lugares/screens/settings_screen.dart';
+import 'package:f03_lugares/screens/tabs_screen.dart';
 import 'package:f03_lugares/utils/app_routes.dart';
 import 'package:flutter/material.dart';
 
@@ -28,9 +29,10 @@ class MyApp extends StatelessWidget {
               ),
             ),
       ),
-      home: CountriesScreen(),
-      //initialRoute: '/',
+      //home: CountriesScreen(),
+      initialRoute: '/',
       routes: {
+        AppRoutes.HOME: (ctx) => TabsScreen(),
         AppRoutes.COUNTRY_PLACES: (ctx) => CountryPlacesScreen(),
         AppRoutes.PLACES_DETAIL: (ctx) => PlaceDetailScreen(),
         AppRoutes.SETTINGS: (ctx) => SettingsScreen(),

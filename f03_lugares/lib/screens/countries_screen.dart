@@ -7,12 +7,11 @@ class CountriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      /*  appBar: AppBar(
           centerTitle: true,
           title: Text(
             'Bora viajar?!',
-          )),
-      drawer: MainDrawer(),
+          )), */
       body: GridView(
         padding: const EdgeInsets.all(25),
         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
