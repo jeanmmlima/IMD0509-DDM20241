@@ -1,9 +1,9 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
-import '../models/cart.dart';
-import '../models/catalog.dart';
+import '../models/cart.store.dart';
 import '../models/item.dart';
 
 class MyCatalog extends StatelessWidget {
@@ -33,39 +33,29 @@ class _AddButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // O método context.select() permitirá que você ouça as alterações de
-    // uma *parte* de um modelo. Você define uma função que "seleciona" (ou seja, retorna)
-    // a parte em que você está interessado e o Provider não vai reconstruir
-    // este widget, a menos que essa parte específica do modelo seja alterada.
-    //
-    // Isso pode levar a melhorias significativas de desempenho.
-    var isInCart = context.select<CartModel, bool>(
-      // Aqui, estamos interessados apenas se [item] está dentro do carrinho.
-      (cart) => cart.items.contains(item),
-    );
+    final cartModelX = Provider.of<CartModelX>(context);
 
-    return TextButton(
-      onPressed: isInCart
-          ? null
-          : () {
-              // Se o item não estiver no carrinho, deixamos o usuário adicioná-lo.
-              // Estamos usando context.read() aqui porque o retorno de chamada
-              // é executado sempre que o usuário toca no botão. Em outras
-              // palavras, ele é executado fora do método build.
-              var cart = context.read<CartModel>();
-              cart.add(item);
-            },
-      style: ButtonStyle(
-        overlayColor: MaterialStateProperty.resolveWith<Color?>((states) {
-          if (states.contains(MaterialState.pressed)) {
-            return Theme.of(context).primaryColor;
-          }
-          return null;
-        }),
-      ),
-      child: isInCart
-          ? const Icon(Icons.check, semanticLabel: 'ADDED')
-          : const Text('ADD'),
+    return Observer(
+      builder: (context) {
+        return TextButton(
+          onPressed: cartModelX.items.contains(item)
+              ? null
+              : () {
+                  cartModelX.add(item);
+                },
+          style: ButtonStyle(
+            overlayColor: MaterialStateProperty.resolveWith<Color?>((states) {
+              if (states.contains(MaterialState.pressed)) {
+                return Theme.of(context).primaryColor;
+              }
+              return null;
+            }),
+          ),
+          child: cartModelX.items.contains(item)
+              ? const Icon(Icons.check, semanticLabel: 'ADDED')
+              : const Text('ADD'),
+        );
+      },
     );
   }
 }
@@ -93,11 +83,10 @@ class _MyListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var item = context.select<CatalogModel, Item>(
-      // Aqui, estamos interessados apenas no item em [index]. Nós não nos importamos
-      // sobre qualquer outra mudança.
-      (catalog) => catalog.getByPosition(index),
-    );
+    final cartModelX = Provider.of<CartModelX>(context);
+
+    final item = cartModelX.catalog.getById(index);
+
     var textTheme = Theme.of(context).textTheme.headline6;
 
     return Padding(

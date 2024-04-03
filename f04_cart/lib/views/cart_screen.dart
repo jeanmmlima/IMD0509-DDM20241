@@ -1,8 +1,9 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
-import '../models/cart.dart';
+import '../models/cart.store.dart';
 
 class MyCart extends StatelessWidget {
   const MyCart({Key? key}) : super(key: key);
@@ -37,24 +38,23 @@ class _CartList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var itemNameStyle = Theme.of(context).textTheme.headline6;
-    // Isso obtém o estado atual do CartModel e também informa ao Flutter
-    // para reconstruir este widget quando o CartModel notificar os ouvintes (em outras palavras,
-    // quando muda).
-    var cart = context.watch<CartModel>();
+    final cartModelX = Provider.of<CartModelX>(context);
 
-    return ListView.builder(
-      itemCount: cart.items.length,
-      itemBuilder: (context, index) => ListTile(
-        leading: const Icon(Icons.done),
-        trailing: IconButton(
-          icon: const Icon(Icons.remove_circle_outline),
-          onPressed: () {
-            cart.remove(cart.items[index]);
-          },
-        ),
-        title: Text(
-          cart.items[index].name,
-          style: itemNameStyle,
+    return Observer(
+      builder: (context) => ListView.builder(
+        itemCount: cartModelX.items.length,
+        itemBuilder: (context, index) => ListTile(
+          leading: const Icon(Icons.done),
+          trailing: IconButton(
+            icon: const Icon(Icons.remove_circle_outline),
+            onPressed: () {
+              cartModelX.remove(cartModelX.items[index]);
+            },
+          ),
+          title: Text(
+            cartModelX.items[index].name,
+            style: itemNameStyle,
+          ),
         ),
       ),
     );
@@ -66,6 +66,7 @@ class _CartTotal extends StatelessWidget {
   Widget build(BuildContext context) {
     var hugeStyle =
         Theme.of(context).textTheme.headline1!.copyWith(fontSize: 48);
+    final cartModelX = Provider.of<CartModelX>(context);
 
     return SizedBox(
       height: 200,
@@ -79,9 +80,9 @@ class _CartTotal extends StatelessWidget {
             //
             // O importante é que não será reconstruído
             // o resto dos widgets neste método de construção.
-            Consumer<CartModel>(
-                builder: (context, cart, child) =>
-                    Text('\$${cart.totalPrice}', style: hugeStyle)),
+            Observer(
+                builder: (context) =>
+                    Text('\$${cartModelX.totalPrice}', style: hugeStyle)),
             const SizedBox(width: 24),
             TextButton(
               onPressed: () {
