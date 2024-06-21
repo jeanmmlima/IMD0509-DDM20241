@@ -13,7 +13,6 @@ class CartModel extends ChangeNotifier {
 
   set catalog(CatalogModel newCatalog) {
     _catalog = newCatalog;
-    //notifica ouvintes
     notifyListeners();
   }
 
@@ -24,13 +23,11 @@ class CartModel extends ChangeNotifier {
 
   void add(Item item) {
     _itemIds.add(item.id);
-
     notifyListeners();
   }
 
   void remove(Item item) {
     _itemIds.remove(item.id);
-
     notifyListeners();
   }
 }

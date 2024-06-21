@@ -1,4 +1,3 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:mobx/mobx.dart';
 
@@ -7,8 +6,17 @@ import 'item.dart';
 
 part 'cart.store.g.dart';
 
+/*
+é uma classe que utiliza o conceito de mixin (with) para combinar a classe _CartModelX 
+com as funcionalidades geradas automaticamente pelo mobx_codegen através do arquivo _$CartModelX.
+*/
+
 class CartModelX = _CartModelX with _$CartModelX;
 
+/*
+_CartModelX é uma classe abstrata que implementa a lógica de um modelo de carrinho de compras.
+Ela estende Store, que é uma marcação para classes gerenciadas pelo MobX.
+ */
 abstract class _CartModelX with Store {
   late CatalogModel _catalog;
 
@@ -19,7 +27,7 @@ abstract class _CartModelX with Store {
 
   @computed
   CatalogModel get catalog => _catalog;
-
+ 
   @computed
   List<Item> get items => _itemIds.map((id) => _catalog.getById(id)).toList();
 
