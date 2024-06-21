@@ -17,6 +17,18 @@ class Product with ChangeNotifier {
     this.isFavorite = false,
   });
 
+   // Factory method to create a Product instance from a JSON map
+  factory Product.fromJson(String id, Map<String, dynamic> json) {
+    return Product(
+      id: id,
+      title: json['title'],
+      description: json['description'],
+      price: json['price'].toDouble(), // Assuming 'price' is stored as a double in JSON
+      imageUrl: json['imageUrl'],
+      isFavorite: json['isFavorite'] ?? false, // Default to false if 'isFavorite' is not present
+    );
+  }
+
   void toggleFavorite() {
     isFavorite = !isFavorite;
     notifyListeners();

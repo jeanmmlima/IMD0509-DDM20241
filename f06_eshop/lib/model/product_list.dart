@@ -7,7 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
 class ProductList with ChangeNotifier {
-  final _baseUrl = 'https://eshop-dim0524-default-rtdb.firebaseio.com/';
+  final _baseUrl = 'https://aula-imd0509-default-rtdb.firebaseio.com/';
 
   //https://st.depositphotos.com/1000459/2436/i/950/depositphotos_24366251-stock-photo-soccer-ball.jpg
   //https://st2.depositphotos.com/3840453/7446/i/600/depositphotos_74466141-stock-photo-laptop-on-table-on-office.jpg
@@ -33,6 +33,39 @@ class ProductList with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> removeProduct(Product product){
+    final request = http.delete(Uri.parse('$_baseUrl/products/${product.id}.json'));
+
+    return request.then((response) {
+      print(response.statusCode);
+      notifyListeners();
+    });
+  }
+
+  Future<List<Product>> fetchProducts(){
+    final request = http.get(Uri.parse('$_baseUrl/products.json'));
+    
+
+    return request.then<List<Product>>((response) {
+      
+      
+      Map<String,dynamic> items = jsonDecode(response.body);
+      
+      List<Product> products = [];
+
+      items.forEach((id, product) { 
+        products.add(Product.fromJson(id,product));
+      });
+
+      print(products.toString());
+      _items = products;
+      return products;
+    });
+
+    
+
+  }
+
   Future<void> addProduct(Product product) {
     final future = http.post(Uri.parse('$_baseUrl/products.json'),
         body: jsonEncode({
@@ -44,7 +77,7 @@ class ProductList with ChangeNotifier {
         }));
     return future.then((response) {
       //print('espera a requisição acontecer');
-      print(jsonDecode(response.body));
+      print(jsonDecode(response.body)); 
       final id = jsonDecode(response.body)['name'];
       print(response.statusCode);
       _items.add(Product(
@@ -70,6 +103,7 @@ class ProductList with ChangeNotifier {
     );
 
     if (hasId) {
+
       return updateProduct(product);
     } else {
       return addProduct(product);
@@ -86,12 +120,12 @@ class ProductList with ChangeNotifier {
     return Future.value();
   }
 
-  void removeProduct(Product product) {
+  /* void removeProduct(Product product) {
     int index = _items.indexWhere((p) => p.id == product.id);
 
     if (index >= 0) {
       _items.removeWhere((p) => p.id == product.id);
       notifyListeners();
     }
-  }
+  } */
 }

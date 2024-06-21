@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../components/product_grid.dart';
+import '../model/product_list.dart';
 import '../utils/app_routes.dart';
 
 enum FilterOptions {
@@ -18,6 +19,13 @@ class ProductsOverviewPage extends StatefulWidget {
 
 class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
   bool _showOnlyFavorites = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     //final provider = Provider.of<ProductList>(context);

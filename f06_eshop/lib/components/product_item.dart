@@ -1,3 +1,4 @@
+import 'package:f06_eshop/model/product_list.dart';
 import 'package:f06_eshop/utils/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -7,6 +8,9 @@ import '../model/product.dart';
 class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
+
+
     //PEGANDO CONTEUDO PELO PROVIDER
     //
     final product = Provider.of<Product>(
@@ -54,8 +58,8 @@ class ProductItem extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           trailing: IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.shopping_cart),
+              onPressed: () => Provider.of<ProductList>(context, listen: false).removeProduct(product),
+              icon: Icon(Icons.delete),
               color: Theme.of(context).colorScheme.secondary),
         ),
       ),

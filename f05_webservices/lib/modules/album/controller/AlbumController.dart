@@ -72,7 +72,7 @@ class AlbumController {
     );
 
     if (response.statusCode == 200) {
-      final lista = jsonDecode(response.body).cast<Map<String, dynamic>>();
+      final lista = jsonDecode(response.body).cast<Map<String, dynamic>>(); 
       return lista.map<Album>((item) => Album.fromJson(item)).toList();
       //return Album.fromJson(jsonDecode(response.body));
     } else {
